@@ -5,6 +5,7 @@
   "homepage": "https://mohsin86.github.io/demo-react/",
   "dependencies": {
     "history": "^4.7.2",
+    "js-base64": "^2.5.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
@@ -26,5 +27,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {}
 }
