@@ -31,18 +31,62 @@ class App extends Component {
         super();
 
         this.state = {
-            data: []
+            data: [],
+            token:''
+
         };
+      //  this.getToken();
+
+
     }
+
+    componentDidMount() {
+
+        this.getToken();
+    }
+
+    getToken(){
+        //
+        var parent = this; // for removing TypeError: "this is undefined"
+
+        let token_url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/jwt-auth/v1/token';
+
+        let formData = new FormData();
+        formData.append('username', 'mohsin');
+        formData.append('password', '123456');
+
+
+
+        fetch(token_url,{
+            method: 'POST', // or 'PUT'
+            body: formData, // data can be `string` or {object}!
+        })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                  var responseData = myJson.token;
+                    console.log(responseData);
+                parent.setState({
+                    token: responseData
+                }) ;
+
+            }).catch(function(error) {
+            // If there is any error you will catch them here
+                    console.log(error);
+            });
+    }
+
   render() {
       var  headerText = 'welcome';
+   //  this.getToken();
 
       return (
           <Router>
               <div className="App">
                 <Header text={headerText} />
-
-                <div className='app-content'>
+                  {this.state.token}
+                  <div className='app-content'>
                     <Switch>
                         <Route exact path="/" component={Home} />
 

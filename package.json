@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://mohsin86.github.io/demo-react/",
   "dependencies": {
+    "axios": "^0.18.0",
     "history": "^4.7.2",
     "js-base64": "^2.5.1",
     "react": "^16.7.0",
