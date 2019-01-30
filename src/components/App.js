@@ -41,8 +41,11 @@ class App extends Component {
     }
 
     componentDidMount() {
+        console.log(this.state.token);
+        if(this.state.token ===''){
+            this.getToken();
+        }
 
-        this.getToken();
     }
 
     getToken(){
@@ -66,7 +69,7 @@ class App extends Component {
             })
             .then(function(myJson) {
                   var responseData = myJson.token;
-                    console.log(responseData);
+                   // console.log(responseData);
                 parent.setState({
                     token: responseData
                 }) ;
@@ -85,17 +88,19 @@ class App extends Component {
           <Router>
               <div className="App">
                 <Header text={headerText} />
-                  {this.state.token}
+
                   <div className='app-content'>
                     <Switch>
                         <Route exact path="/" component={Home} />
 
                         <Route path="/movies" component={Movies} />
                         <Route path="/news" component={News} />
-                        <Route path="/topics" component={Topics} />
+                        <Route path="/topics" component={Topics}  />
                         <Route path="/contact" component={Contact} />
                         <Route path="/about" component={About} />
-                        <Route path="/products" component={Products} />
+                        <Route path="/products" render={(routeProps)=> (<Products {...routeProps} token={this.state.token}/>) } />
+
+
                         <Redirect to="/" />
                     </Switch>
                 </div>

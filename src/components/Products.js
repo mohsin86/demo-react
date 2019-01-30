@@ -11,57 +11,95 @@ https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
 
 
 class Products extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             products: [],
-            token:''
+            token:this.props.token
         };
-
+        console.log("token = "+this.props.token);
      //   this.getToken() ;
-      //  this.fetchProductFromwooApi();
+      //  this.fetchProductFromwooApi = this.fetchProductFromwooApi.bind(this);
     }
 
-    getToken(){
-        //
-        let token_url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/jwt-auth/v1/token';
-
-        let formData = new FormData();
-        formData.append('username', 'mohsin');
-        formData.append('password', '123456');
-
-        console.log(JSON.stringify(formData));
-
-        fetch(token_url,{
-            method: 'POST', // or 'PUT'
-            body: formData, // data can be `string` or {object}!
-        })
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(myJson) {
-              //  var responseData = myJson.token;
-                console.log(myJson);
-                this.setState({
-                    token: myJson
-                    })
-
-
-            });
+    componentDidMount() {
+            this.fetchProductFromwooApi();
+      // this.fetchProductFromwooApiByaxios();
     }
 
 
     fetchProductFromwooApi(){
+        var parent = this;
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer '+this.state.token);
+
+       //
+          headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Access-Control-Allow-Credentials', true);
+       headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+       headers.append('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+         headers.append('Origin','http://localhost:3000');
+
+
+
+        fetch('https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/igloo/products/',{
+            method: "GET",
+            headers: headers,
+
+        }).then(function(response){
+            console.log(response);
+            return response.json();
+
+        }).then(function(result){
+            console.log(result);
+            // if (result.data.status === 200) {
+            //     parent.setState({
+            //          products: result
+            //     });
+            // }
+            //     parent.setState({
+            //          products: result
+            //     });
+
+        }).catch(function(error) {
+            // If there is any error you will catch them here
+            console.log(error);
+        });
 
     }
-    fetchProductFromApi(){
 
+    fetchProductFromwooApiByaxios(){
+        var parent = this;
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer '+this.state.token);
+
+
+     //  headers.append('Access-Control-Allow-Origin', '*');
+       //  headers.append('Access-Control-Allow-Credentials', true);
+    //     headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    //     headers.append('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+     //     headers.append('Origin','http://localhost:3000');
+
+        axios.get('https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/igloo/products/',{
+            method: 'GET',
+            headers: headers,
+
+        }).then(results => console.log(results))
+    }
+
+    fetchProductFromApi(){
         let url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wc-api/v3/products?filter[limit] =7';
         let username = 'ck_637c1da25e69980d738d6a5c3ebd52e175290ce3';
         let password = 'cs_062b938a3a3481e7820312b7d160cc52d724ee6c';
 
         let headers = new Headers();
-
+        headers.append('Authorization', 'Basic '+Base64.encode(username + ":" + password));
       //  headers.append('Access-Control-Allow-Origin', 'Origin');
       //  headers.append('Access-Control-Allow-Credentials', 'true');
        headers.append('Content-Type', 'application/json; charset=utf-8');
@@ -70,8 +108,8 @@ class Products extends Component {
 
         headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
         headers.append('Access-Control-Allow-Credentials', 'true');
-        headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        headers.append('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+        headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+        headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
         headers.append('Authorization', 'Basic '+Base64.encode(username + ":" + password));
 
@@ -104,13 +142,15 @@ class Products extends Component {
     }
 
     render() {
+
         return (
 
 
             <div className="product">
                 Product
-                {this.state.products}
-                {this.state.token}
+
+
+
             </div>
         );
     }

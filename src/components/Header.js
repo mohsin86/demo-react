@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter as Route, Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 
 /*
 First : You need to install react-router-dom . It is the package used to implement the routing process in your web application.
