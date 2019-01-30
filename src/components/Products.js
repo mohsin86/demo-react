@@ -14,7 +14,7 @@ class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: [],
+            products: {},
             token:this.props.token
         };
         console.log("token = "+this.props.token);
@@ -44,25 +44,28 @@ class Products extends Component {
          headers.append('Origin','http://localhost:3000');
 
 
-
-        fetch('https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/igloo/products/',{
+   var url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/igloo/products/';
+  //  var url = '/wp-json/igloo/products/';
+ //  var url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/wp/v2/posts';
+        fetch(url,{
             method: "GET",
             headers: headers,
+         //   mode: 'no-cors',
 
         }).then(function(response){
-            console.log(response);
+          //  console.log(response);
             return response.json();
 
         }).then(function(result){
-            console.log(result);
+             console.log(result);
             // if (result.data.status === 200) {
             //     parent.setState({
             //          products: result
             //     });
             // }
-            //     parent.setState({
-            //          products: result
-            //     });
+                parent.setState({
+                     products: result
+                });
 
         }).catch(function(error) {
             // If there is any error you will catch them here
@@ -146,8 +149,8 @@ class Products extends Component {
         return (
 
 
-            <div className="product">
-                Product
+            <div className="products">
+
 
 
 
