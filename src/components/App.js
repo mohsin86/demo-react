@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { BrowserRouter as Router, Route, Switch,Redirect } from "react-router-dom";
 
+import axios from 'axios';
+
 import Header from './Header';
 import Footer from './Footer';
 import Movies from './Movies';
@@ -43,15 +45,15 @@ class App extends Component {
     componentDidMount() {
         console.log(this.state.token);
         if(this.state.token ===''){
-            this.getToken();
+            this.getToken(this);
         }
 
     }
 
-    getToken(){
+    getToken(parent){
         //
-        var parent = this; // for removing TypeError: "this is undefined"
-
+      //  var parent = this; // for removing TypeError: "this is undefined"
+        let token_from_api = '';
         let token_url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/jwt-auth/v1/token';
 
         let formData = new FormData();
@@ -61,24 +63,40 @@ class App extends Component {
 
 
         fetch(token_url,{
-            method: 'POST', // or 'PUT'
-            body: formData, // data can be `string` or {object}!
+            method: 'POST',
+            body: formData,
         })
             .then(function(response) {
                 return response.json();
             })
             .then(function(myJson) {
                   var responseData = myJson.token;
-                   // console.log(responseData);
-                parent.setState({
-                    token: responseData
-                }) ;
 
+                  token_from_api = responseData;
+                    parent.setState({
+                        token: responseData
+                    }) ;
             }).catch(function(error) {
-            // If there is any error you will catch them here
+
                     console.log(error);
             });
+
+
     }
+
+    getTokenByAxios(){
+
+
+        let token_url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/jwt-auth/v1/token';
+
+        let formData = new FormData();
+        formData.append('username', 'mohsin');
+        formData.append('password', '123456');
+
+            return axios.get({});
+    }
+
+
 
   render() {
       var  headerText = 'welcome';
@@ -98,7 +116,7 @@ class App extends Component {
                         <Route path="/topics" component={Topics}  />
                         <Route path="/contact" component={Contact} />
                         <Route path="/about" component={About} />
-                        <Route path="/products" render={(routeProps)=> (<Products {...routeProps} token={this.state.token}/>) } />
+                        <Route path="/products" render={(routeProps)=> (<Products {...routeProps} token={this.state.token} getToken={this.getToken} />) } />
 
 
                         <Redirect to="/" />
