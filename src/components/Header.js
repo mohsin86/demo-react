@@ -37,7 +37,8 @@ class Header extends Component {
 
                 </main>
 
-                {this.props.text}
+                {/*{this.props.text}*/}
+                {this.props.cart}
             </header>
 
 

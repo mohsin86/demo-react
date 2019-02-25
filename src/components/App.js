@@ -16,7 +16,7 @@ import Contact from './Contact';
 import About from './About';
 import Products from './Products';
 
-
+import reducer from "./reducers";
 /*
 for understanding react-router-dom , go to : https://blog.logrocket.com/react-router-dom-set-up-essential-components-parameterized-routes-505dc93642f1
  */
@@ -26,6 +26,10 @@ for understanding react-router-dom , go to : https://blog.logrocket.com/react-ro
 
 import './App.css';
 
+import { store } from "./store";
+
+
+import ButtonGroup from "./ButtonGroup";
 
 
 class App extends Component {
@@ -105,8 +109,8 @@ class App extends Component {
       return (
           <Router>
               <div className="App">
-                <Header text={headerText} />
-
+                <Header text={headerText} cart={store.getState().cart} />
+                  <ButtonGroup key={2} technologies={["React", "Elm", "React-redux"]} />
                   <div className='app-content'>
                     <Switch>
                         <Route exact path="/" component={Home} />
