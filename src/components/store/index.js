@@ -1,7 +1,7 @@
 import { createStore } from "redux";
-import {reducer } from "../reducers/index";
+import {todoApp } from "../reducers";
 
 const initialState = { cart: "MY Cart 1 " };
-const store = createStore(reducer, initialState);
+const store = createStore(todoApp)
 
 export default store;

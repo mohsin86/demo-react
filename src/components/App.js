@@ -26,7 +26,7 @@ for understanding react-router-dom , go to : https://blog.logrocket.com/react-ro
 
 import './App.css';
 
-import { store } from "./store";
+//import { store } from "./store/";
 
 
 import ButtonGroup from "./ButtonGroup";
@@ -109,7 +109,7 @@ class App extends Component {
       return (
           <Router>
               <div className="App">
-                <Header text={headerText} cart={store.getState().cart} />
+                <Header text={headerText}  />
                   <ButtonGroup key={2} technologies={["React", "Elm", "React-redux"]} />
                   <div className='app-content'>
                     <Switch>
