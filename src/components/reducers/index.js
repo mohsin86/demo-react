@@ -1,49 +1,37 @@
-import { combineReducers } from 'redux'
-import {
-    ADD_TODO,
-    TOGGLE_TODO,
-    SET_VISIBILITY_FILTER,
-    VisibilityFilters
-} from '../actions/type'
+// import { combineReducers } from 'redux'
 
-const { SHOW_ALL } = VisibilityFilters
+const initialState = {
+    todos:[],
+    posts:[],
+    cart:[],
+}
 
-function visibilityFilter(state = SHOW_ALL, action) {
+
+function todosApp(state = initialState, action) {
     switch (action.type) {
-        case SET_VISIBILITY_FILTER:
-            return action.filter
+        case 'ADD_CART':
+            //console.log(action);
+            return {
+                cart: [
+                    ...state.cart,
+                    {
+                        productId:action.cart.id,
+                        productName: action.cart.name,
+                        productImage: action.cart.image,
+
+                    }]
+            }
+
+        case 'REMOVE_TODO':
+            return ''
         default:
             return state
     }
 }
 
-function todos(state = [], action) {
-    switch (action.type) {
-        case ADD_TODO:
-            return [
-                ...state,
-                {
-                    text: action.text,
-                    completed: false
-                }
-            ]
-        case TOGGLE_TODO:
-            return state.map((todo, index) => {
-                if (index === action.index) {
-                    return Object.assign({}, todo, {
-                        completed: !todo.completed
-                    })
-                }
-                return todo
-            })
-        default:
-            return state
-    }
-}
+// const todoApp = combineReducers({
+//     visibilityFilter,
+//     todos
+// })
 
-const todoApp = combineReducers({
-    visibilityFilter,
-    todos
-})
-
-export default todoApp
+export default todosApp ;

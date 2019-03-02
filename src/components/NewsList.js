@@ -1,6 +1,6 @@
 import React from 'react';
-import AddNews from './AddNews';
-const Todos = ({todos,deletTodo,addTodo}) => {
+
+const Todos = ({todos,deletTodo}) => {
 
 
      const todoList = todos.length ? (
@@ -15,24 +15,10 @@ const Todos = ({todos,deletTodo,addTodo}) => {
          <p> You have no list </p>
      );
 
-
-
     return (
-        <div className="todos row">
-            <div className="col-md-6">
                 <ul>
                     {todoList}
                 </ul>
-            </div>
-            <div className="col-md-4">
-                <AddNews addTodo={addTodo} />
-            </div>
-
-
-
-
-
-        </div>
     )
 }
 

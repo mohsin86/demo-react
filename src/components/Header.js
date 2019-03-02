@@ -14,8 +14,17 @@ The exact property will tell React Router to add active to the link only if the 
 
 
 class Header extends Component {
+    constructor(props){
+        super(props);
+    }
+
+
+
     render() {
+       const cart = this.props.cartList.length;
+       console.log(cart);
         return (
+
 
             <header className="App-header">
 
@@ -27,11 +36,11 @@ class Header extends Component {
                     <NavLink to="/movies">Movies</NavLink>
                     <NavLink to="/about">About</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
-
+                    <span>{this.cart}</span>
                     <div className="topnav-right">
                         <input type="text" placeholder="Search.."/>
-
                     </div>
+
                 </div>
                 <main>
 

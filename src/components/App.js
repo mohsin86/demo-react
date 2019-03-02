@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { BrowserRouter as Router, Route, Switch,Redirect } from "react-router-dom";
 
-import axios from 'axios';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -15,21 +14,17 @@ import Topics from './Topics';
 import Contact from './Contact';
 import About from './About';
 import Products from './Products';
+import './App.css';
+import ButtonGroup from "./ButtonGroup";
 
-import reducer from "./reducers";
+import store  from "./store/index";
+
+//import axios from 'axios';
 /*
 for understanding react-router-dom , go to : https://blog.logrocket.com/react-router-dom-set-up-essential-components-parameterized-routes-505dc93642f1
  */
 
 // import {additionalMovies} from '../data/movies-data';
-
-
-import './App.css';
-
-//import { store } from "./store/";
-
-
-import ButtonGroup from "./ButtonGroup";
 
 
 class App extends Component {
@@ -54,10 +49,11 @@ class App extends Component {
 
     }
 
+
     getToken(parent){
         //
       //  var parent = this; // for removing TypeError: "this is undefined"
-        let token_from_api = '';
+
         let token_url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/jwt-auth/v1/token';
 
         let formData = new FormData();
@@ -76,7 +72,7 @@ class App extends Component {
             .then(function(myJson) {
                   var responseData = myJson.token;
 
-                  token_from_api = responseData;
+               //  let token_from_api = responseData;
                     parent.setState({
                         token: responseData
                     }) ;
@@ -88,17 +84,7 @@ class App extends Component {
 
     }
 
-    getTokenByAxios(){
 
-
-        let token_url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/jwt-auth/v1/token';
-
-        let formData = new FormData();
-        formData.append('username', 'mohsin');
-        formData.append('password', '123456');
-
-            return axios.get({});
-    }
 
 
 
@@ -106,10 +92,11 @@ class App extends Component {
       var  headerText = 'welcome';
    //  this.getToken();
 
+
       return (
           <Router>
               <div className="App">
-                <Header text={headerText}  />
+                <Header text={headerText} cartList={store.getState.cart} />
                   <ButtonGroup key={2} technologies={["React", "Elm", "React-redux"]} />
                   <div className='app-content'>
                     <Switch>

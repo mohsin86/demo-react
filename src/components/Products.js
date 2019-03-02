@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-//import  { ProductThumbList } from './product/Productthumblistist';
+
+import store  from "./store/index";
+
+import  ProductThumbList  from './product/ProductThumbList';
 
 // import { Base64 } from 'js-base64';
 
@@ -29,18 +32,17 @@ class Products extends Component {
     }
 
 
-
-
-
     componentDidMount() {
         console.log("token"+this.state.token);
-        if(this.state.token !='') {
+        if(this.state.token !=='') {
             this.fetchProductFromwooApi();
         }else{
             this.getToken(this);
         }
       // this.fetchProductFromwooApiByaxios();
     }
+
+
 
 
     fetchProductFromwooApi(){
@@ -88,7 +90,7 @@ class Products extends Component {
         //
         let parent = this;
         //  var parent = this; // for removing TypeError: "this is undefined"
-        let token_from_api = '';
+
         let token_url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/jwt-auth/v1/token';
 
         let formData = new FormData();
@@ -106,8 +108,6 @@ class Products extends Component {
             })
             .then(function(myJson) {
                 var responseData = myJson.token;
-
-                token_from_api = responseData;
                 parent.setState({
                     token: responseData
 
@@ -124,56 +124,30 @@ class Products extends Component {
     }
 
 
+    addProductToCart =(product)=>{
+
+        let src = '';
+        if( typeof product !='undefined' && typeof product.images !=='undefined' && typeof product.images[0] !=='undefined' &&  typeof product.images[0].src != 'undefined'){
+            src = product.images[0].src;
+        }
+        const add_cart = {type:'ADD_CART', cart:{id:product.id,name:product.name,image:src}};
+        store.dispatch(add_cart);
+
+    }
+
 
     render() {
-
-        function ProductThumbList(props){
-            let src = '';
-            if( typeof props.listing !='undefined' && typeof props.listing.images !=='undefined' && typeof props.listing.images[0] !=='undefined' &&  typeof props.listing.images[0].src != 'undefined'){
-                 src = props.listing.images[0].src;
-            }
-          //  console.log(props.listing[1]);
-
-            return(
-                            <div className="item  col-xs-4 col-lg-4">
-                                <div className="thumbnail">
-                                    <img className="group list-group-image" src={src} alt={props.listing.name} />
-                                    <div className="caption">
-                                        <h4 className="group inner list-group-item-heading">
-                                            {props.listing.name}</h4>
-                                        <p className="group inner list-group-item-text">
-                                            Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                                        <div className="row">
-                                            <div className="col-xs-12 col-md-6">
-                                                <p className="lead">
-                                                    $21.000</p>
-                                            </div>
-                                            <div className="col-xs-12 col-md-6">
-                                                <a className="btn btn-success"   href="">Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-            )
-        }
-
-
         return (
             <div className="container products">
-                <h2>product List </h2>
+                <h2>Product List </h2>
 
                 <div className="row list-group">
                 {
 
-
                     Object.entries(this.state.products).map(entry =>{
+
                         return(
-                            <ProductThumbList key={entry[0]} listing={entry[1]} />
+                            <ProductThumbList key={entry[0]} listing={entry[1]} addProductToCart={this.addProductToCart} />
                         )
                     } )
                 }
@@ -182,7 +156,6 @@ class Products extends Component {
         );
     }
 }
-
 
 
 
