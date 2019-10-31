@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import store  from "./store/index";
-
 import  ProductThumbList  from './product/ProductThumbList';
 
 // import { Base64 } from 'js-base64';
@@ -130,8 +128,8 @@ class Products extends Component {
         if( typeof product !='undefined' && typeof product.images !=='undefined' && typeof product.images[0] !=='undefined' &&  typeof product.images[0].src != 'undefined'){
             src = product.images[0].src;
         }
-        const add_cart = {type:'ADD_CART', cart:{id:product.id,name:product.name,image:src}};
-        store.dispatch(add_cart);
+        //const add_cart = {type:'ADD_CART', cart:{id:product.id,name:product.name,image:src}};
+        //store.dispatch(add_cart);
 
     }
 

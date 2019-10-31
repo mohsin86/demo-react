@@ -17,7 +17,6 @@ import Products from './Products';
 import './App.css';
 import ButtonGroup from "./ButtonGroup";
 
-import store  from "./store/index";
 
 //import axios from 'axios';
 /*
@@ -51,17 +50,10 @@ class App extends Component {
 
 
     getToken(parent){
-        //
-      //  var parent = this; // for removing TypeError: "this is undefined"
-
         let token_url = 'https://dev.sebpo.net/theme.sebpo.net/wp-restapi-test/wp-json/jwt-auth/v1/token';
-
         let formData = new FormData();
         formData.append('username', 'mohsin');
         formData.append('password', '123456');
-
-
-
         fetch(token_url,{
             method: 'POST',
             body: formData,
@@ -80,13 +72,7 @@ class App extends Component {
 
                     console.log(error);
             });
-
-
     }
-
-
-
-
 
   render() {
       var  headerText = 'welcome';

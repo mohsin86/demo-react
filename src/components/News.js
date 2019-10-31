@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Todos from './NewsList';
 import AddNews from './AddNews';
+
+import Counter from './reduxComponent/Counter';
+import AddCounter from './reduxComponent/AddCounter';
+import RemoveCounter from './reduxComponent/RemoveCounter';
+
 class News extends Component {
     state = {
         todos:[
@@ -44,6 +49,21 @@ class News extends Component {
                 <div className="col-md-4">
                     <AddNews addTodo={this.addTodo} />
                 </div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <Counter></Counter><br />
+                        <div className="columns">
+                            <div className="column is-11">
+                                <AddCounter></AddCounter>
+                            </div>
+                            <div className="column auto">
+                                <RemoveCounter></RemoveCounter>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         );
     }
