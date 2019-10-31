@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Feature
+1. Redux Implemented
+2. get movie data from remote url
+3. You can add a task list
+
 ## Available Scripts
 
 In the project directory, you can run:
