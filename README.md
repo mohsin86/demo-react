@@ -1,9 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Feature
-1. Redux Implemented
 2. Activate CORS show Product List
 3. You can add a task list
+
+## Technology
+1. React
+2. Redux
 
 ## Available Scripts
 
