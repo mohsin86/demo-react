@@ -21,8 +21,7 @@ class Header extends Component {
 
 
     render() {
-       const cart = this.props.cartList.length;
-       console.log(cart);
+       const cart = 2;
         return (
 
 

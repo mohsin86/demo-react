@@ -96,7 +96,7 @@ class App extends Component {
       return (
           <Router>
               <div className="App">
-                <Header text={headerText} cartList={store.getState.cart} />
+                <Header text={headerText}/>
                   <ButtonGroup key={2} technologies={["React", "Elm", "React-redux"]} />
                   <div className='app-content'>
                     <Switch>
