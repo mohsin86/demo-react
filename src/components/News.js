@@ -52,6 +52,7 @@ class News extends Component {
 
                 <div className="row">
                     <div className="col-md-12">
+                        <h2>Global State by redux</h2>
                         <Counter></Counter><br />
                         <div className="columns">
                             <div className="column is-11">
