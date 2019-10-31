@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Feature
 1. Redux Implemented
-2. get movie data from remote url
+2. Activate CORS show Product List
 3. You can add a task list
 
 ## Available Scripts
